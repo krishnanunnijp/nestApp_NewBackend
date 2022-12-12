@@ -20,4 +20,7 @@ public interface GuardDao extends CrudRepository<Guard, Integer> {
     @Query(value = "DELETE FROM `guard` WHERE `id`=:id",nativeQuery = true)
     void deleteGuard(@Param("id") Integer id);
 
+    @Query(value = "SELECT `id`, `guardnumber`, `mobile_number`, `name`, `password`, `salary`, `user_name` FROM `guard` WHERE `guardnumber`=:guardnumber",nativeQuery = true)
+    List<Guard> searchGuards(@Param("guardnumber") Integer guardnumber);
+
 }
