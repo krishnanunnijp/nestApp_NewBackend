@@ -2,11 +2,9 @@ package com.example.nestApp_NewBackend.controller;
 
 import com.example.nestApp_NewBackend.dao.EmployeeDao;
 import com.example.nestApp_NewBackend.model.Employee;
+import com.example.nestApp_NewBackend.model.Guard;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.List;
@@ -37,6 +35,25 @@ public class employeeController {
         }else {
             map.put("status","failed");
         }
+        return map;
+    }
+    @CrossOrigin(origins = "*")
+    @GetMapping(path = "/view")
+    public List<Employee> view(){
+        return (List<Employee>) dao.findAll();
+    }
+
+    @CrossOrigin(origins = "*")
+    @PostMapping(path = "/search",consumes = "application/json",produces = "application/json")
+    public List<Employee> search(@RequestBody Employee employee){
+        return (List<Employee>) dao.searchEmployees(employee.getEmployeeCode());
+    }
+    @CrossOrigin(origins = "*")
+    @PostMapping(path = "/delete",consumes = "application/json",produces = "application/json")
+    public HashMap<String,String> delete(@RequestBody Employee employee) {
+        HashMap<String, String> map = new HashMap<>();
+        dao.deleteEmployee(employee.getId());
+        map.put("status","success");
         return map;
     }
 }
