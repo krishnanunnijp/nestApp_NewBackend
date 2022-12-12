@@ -1,6 +1,5 @@
 package com.example.nestApp_NewBackend.controller;
 import com.example.nestApp_NewBackend.dao.GuardDao;
-import com.example.nestApp_NewBackend.model.Employee;
 import com.example.nestApp_NewBackend.model.Guard;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -39,6 +38,19 @@ public class guardController {
     @GetMapping(path = "/viewGuard")
     public List<Guard> viewGuard(){
         return (List<Guard>) dao2.findAll();
+    }
+    @CrossOrigin(origins = "*")
+    @PostMapping(path = "/deleteGuard",consumes = "application/json",produces = "application/json")
+    public HashMap<String,String> deleteGuard(@RequestBody Guard gard) {
+        HashMap<String, String> map = new HashMap<>();
+        dao2.deleteGuard(gard.getId());
+        map.put("status","success");
+        return map;
+    }
+    @CrossOrigin(origins = "*")
+    @PostMapping(path = "/searchGuard",consumes = "application/json",produces = "application/json")
+    public List<Guard> search(@RequestBody Guard gard){
+        return (List<Guard>) dao2.searchGuards(gard.getGuardnumber());
     }
 
 
