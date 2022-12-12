@@ -40,6 +40,14 @@ public class guardController {
     public List<Guard> viewGuard(){
         return (List<Guard>) dao2.findAll();
     }
+    @CrossOrigin(origins = "*")
+    @PostMapping(path = "/deleteGuard",consumes = "application/json",produces = "application/json")
+    public HashMap<String,String> deleteGuard(@RequestBody Guard gard) {
+        HashMap<String, String> map = new HashMap<>();
+        dao2.deleteGuard(gard.getId());
+        map.put("status","success");
+        return map;
+    }
 
 
 }
