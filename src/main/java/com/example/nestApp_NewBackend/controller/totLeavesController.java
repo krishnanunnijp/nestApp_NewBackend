@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
 
@@ -21,6 +22,9 @@ public class totLeavesController {
     @PostMapping(path = "/addTotal",consumes = "application/json",produces = "application/json")
     public HashMap<String,String>  addTotal(@RequestBody totLeaves total){
         HashMap<String, String> map = new HashMap<>();
+        LocalDate localDate = LocalDate.now();
+        System.out.println(localDate.getYear());
+        total.setYear(localDate.getYear());
         dao.save(total);
         map.put("status","success");
         return map;
