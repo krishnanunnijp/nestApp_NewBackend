@@ -27,7 +27,7 @@ public class guardController {
         HashMap<String, String> map = new HashMap<String, String>();
         List<Guard> emp= dao2.passwordCheck(g.getUserName(),g.getPassword());
         if (emp.size() != 0) {
-            map.put("id",String.valueOf( emp.get(0).getId()));
+            map.put("guardnumber",String.valueOf( emp.get(0).getGuardnumber()));
             map.put("status","success");
         }else {
             map.put("status","failed");
