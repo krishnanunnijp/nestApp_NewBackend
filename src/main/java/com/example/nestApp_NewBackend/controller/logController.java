@@ -27,7 +27,9 @@ public class logController {
         LocalDate ld1=LocalDate.now();
         log.setLogin(String.valueOf(lt1));
         log.setDate(String.valueOf(ld1));
-        dao.save(log);
+        List<logHours> log1=dao.searchLog(log.getDate(),log.getEmp_id());
+        if (log1.size() ==0) {
+        dao.save(log);}
         map.put("status","success");
         return map;
     }
@@ -47,4 +49,17 @@ public class logController {
         map.put("status","success");
         return map;
     }
+
+    @CrossOrigin(origins = "*")
+    @GetMapping(path = "/todayLog")
+    public List<Map<String,String>> todayLOog(){
+        return  dao.todayLogMaps();
+    }
+
+    @CrossOrigin(origins = "*")
+    @PostMapping(path = "/dateLog",consumes = "application/json",produces = "application/json")
+    public List<Map<String,String>> todayLog(@RequestBody logHours log){
+        return  dao.todayLog1Maps(log.getDate());
+    }
+
 }

@@ -8,6 +8,7 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 
 import java.util.List;
+import java.util.Map;
 
 
 public interface EmployeeDao extends CrudRepository<Employee, Integer> {
@@ -22,4 +23,10 @@ public interface EmployeeDao extends CrudRepository<Employee, Integer> {
     @Transactional
     @Query(value = "DELETE FROM `employee` WHERE `id`=:id",nativeQuery = true)
     void deleteEmployee(@Param("id") Integer id);
+
+    @Query(value = "SELECT e.`id`, e.`designation`, e.`employee_code`, e.`mobile_number`, e.`name`, e.`password`, e.`salary`, e.`user_name`,l.login,l.logout,l.minutes FROM `employee` e JOIN log_hours l ON e.employee_code=l.emp_id  WHERE l.date=:date",nativeQuery = true)
+    List<Map<String,String>> findEmployees(@Param("date") String date);
+
+    @Query(value = "SELECT `id`, `designation`, `employee_code`, `mobile_number`, `name`, `password`, `salary`, `user_name` FROM `employee` WHERE `employee_code` NOT IN (SELECT  `empid` FROM `leaves` WHERE :date  BETWEEN `from` AND `to`);",nativeQuery = true)
+    List<Employee> findEmployeesLeaves(@Param("date") String date);
 }

@@ -16,6 +16,6 @@ public interface totLeavesDao extends CrudRepository<totLeaves,Integer> {
 
     @Modifying
     @Transactional
-    @Query(value = "UPDATE `tot_leaves` SET `casual_leaves`=`casual_leaves`-:casual_leaves,`sick_leave`=`sick_leave`-:sick_leave ,`special_leave`=`special_leave`-:special_leave WHERE `emp_id`=:emp_id",nativeQuery = true)
-    void editLeaves(@Param("casual_leaves") Integer casual_leaves,@Param("sick_leave") Integer sick_leave,@Param("special_leave") Integer special_leave,@Param("emp_id") Integer emp_id);
+    @Query(value = "UPDATE `tot_leaves` SET `casual_leaves`=`casual_leaves`-:casual_leaves,`sick_leave`=`sick_leave`-:sick_leave ,`special_leave`=`special_leave`-:special_leave WHERE `emp_id`=:emp_id AND `year`=:year",nativeQuery = true)
+    void editLeaves(@Param("casual_leaves") Integer casual_leaves,@Param("sick_leave") Integer sick_leave,@Param("special_leave") Integer special_leave,@Param("emp_id") Integer emp_id,@Param("year") Integer year);
 }

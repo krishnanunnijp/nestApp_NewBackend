@@ -41,7 +41,8 @@ public class totLeavesController {
     @PostMapping(path = "/editTotal",consumes = "application/json",produces = "application/json")
     public HashMap<String,String> editTotal(@RequestBody totLeaves total){
         HashMap<String, String> map = new HashMap<>();
-         dao.editLeaves( total.getCasual_leaves(), total.getSick_leave(), total.getSpecial_leave(),   total.getEmp_id());
+        total.setYear(LocalDate.now().getYear());
+         dao.editLeaves( total.getCasual_leaves(), total.getSick_leave(), total.getSpecial_leave(),   total.getEmp_id(),total.getYear());
          map.put("status","success");
         return map;
     }
