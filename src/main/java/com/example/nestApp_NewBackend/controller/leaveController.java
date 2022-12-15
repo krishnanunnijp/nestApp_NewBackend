@@ -26,7 +26,7 @@ public class leaveController {
         LocalDate from = LocalDate.parse(String.valueOf(leaves.getFrom()));
         LocalDate to = LocalDate.parse(String.valueOf(leaves.getTo()));
         long diffInDays = ChronoUnit.DAYS.between(from, to);
-        leaves.setDays((int) diffInDays);
+        leaves.setDays((int) diffInDays+1);
         dao.save(leaves);
         map.put("status","success");
         return map;
